@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+
+  postgres:
+    restart: always
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+      POSTGRES_USER: dbuser
+
+  web:
+    restart: always
+    build: .
+    depends_on:
+      - postgres
+    ports:
+      - "8000:8000"
+    volumes:
+      - static:/www
+    # env_file: .env
+    environment:
+      DEBUG: 'True'
+      DB_ENGINE: 'django.db.backends.postgresql'
+      DB_NAME: 'postgres'
+      DB_USER: 'dbuser'
+      DB_PASSWORD: 'postgres' 
+      DB_HOST: 'postgres'
+      STATIC_ROOT: '/www/static'
+      MEDIA_ROOT: '/www/media'
+      SECRET_KEY: '!nbkyn4osdgpzggv)(9w=&u_a((f!k9=m^bo%$1knzya%7-e++'
+
+  nginx:
+    restart: always
+    build: ./nginx/
+    depends_on:
+      - web
+    ports:
+      - "8080:80"
+    volumes:
+      - static:/usr/share/nginx/html
+
+
+volumes:
+  static:
+  postgres_data:

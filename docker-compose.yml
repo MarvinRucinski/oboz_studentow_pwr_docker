@@ -33,6 +33,7 @@ services:
       STATIC_ROOT: '/www/static'
       MEDIA_ROOT: '/www/media'
       SECRET_KEY: '!nbkyn4osdgpzggv)(9w=&u_a((f!k9=m^bo%$1knzya%7-e++'
+      VITE_API_URL: '/api/'
 
   nginx:
     restart: always

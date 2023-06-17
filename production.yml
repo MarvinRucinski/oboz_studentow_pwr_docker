@@ -10,7 +10,7 @@ services:
 
   web:
     environment:
-      DEBUG: 'False'
+      # DEBUG: 'False'
 
       EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
       EMAIL_HOST: 'host.docker.internal'
@@ -18,7 +18,8 @@ services:
 
       DB_PASSWORD: '/run/secrets/db_password'
       SECRET_KEY: '/run/secrets/secret_key'
-      ALLOWED_HOSTS: '188.68.236.144,130.61.148.125,appka.obozstudentowpwr.com,apka.obozstudentowpwr.com,test.obozstudentowpwr.com'
+      ALLOWED_HOSTS: '130.61.148.125,appka.obozstudentowpwr.com,apka.obozstudentowpwr.com,test.obozstudentowpwr.com'
+      CSRF_TRUSTED_ORIGINS: 'https://appka.obozstudentowpwr.com,https://apka.obozstudentowpwr.com,https://test.obozstudentowpwr.com'
     secrets:
       - secret_key
       - db_password
@@ -28,6 +29,7 @@ services:
   nginx:
     ports:
       - "80:80"
+      - "443:443"
 
 secrets:
   secret_key:

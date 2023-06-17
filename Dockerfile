@@ -13,7 +13,7 @@ RUN npm install
 COPY ./vue/ ./
 
 # build app for production with minification
-RUN npm run build
+RUN npx vite build --base=/app/
 
 
 

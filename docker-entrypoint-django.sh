@@ -20,6 +20,7 @@ exec gunicorn \
    --bind 0.0.0.0:8000 \
    --name app \
    --workers 3 \
+   --forwarded-allow-ips="*" \
    --log-level=info \
    --capture-output --enable-stdio-inheritance \
    --log-file=/app/logs/gunicorn.log \

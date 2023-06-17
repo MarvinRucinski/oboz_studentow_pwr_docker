@@ -13,8 +13,13 @@ services:
       # DEBUG: 'False'
 
       EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
-      EMAIL_HOST: 'host.docker.internal'
       DEFAULT_FROM_EMAIL: 'Obóz Studentów Pwr <noreply@obozstudentowpwr.com>'
+      EMAIL_HOST: 'smtp.gmail.com'
+      EMAIL_HOST_USER: 'mervinmervin0@gmail.com'
+      EMAIL_HOST_PASSWORD: 'xpgqkqvzuqrhmfzo'
+      EMAIL_PORT: 587
+      EMAIL_USE_TLS: 'true'
+      EMAIL_USE_SSL: 'false'
 
       DB_PASSWORD: '/run/secrets/db_password'
       SECRET_KEY: '/run/secrets/secret_key'

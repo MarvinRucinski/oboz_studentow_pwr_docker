@@ -10,7 +10,7 @@ services:
 
   web:
     environment:
-      # DEBUG: 'False'
+      DEBUG: 'False'
 
       EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
       DEFAULT_FROM_EMAIL: 'Obóz Studentów Pwr <noreply@obozstudentowpwr.com>'

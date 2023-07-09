@@ -11,6 +11,9 @@ python manage.py collectstatic --noinput
 # copy vue files to www
 cp -a /vue/. /www/app/
 rm /www/app/index.html
+rm /www/app/firebase-messaging-sw.js
+
+cp /vue/firebase-messaging-sw.js /www/firebase-messaging-sw.js
 
 # Start Gunicorn processes
 echo Starting Gunicorn.

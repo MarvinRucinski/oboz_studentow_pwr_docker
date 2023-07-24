@@ -13,17 +13,17 @@ services:
       DEBUG: 'False'
 
       EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
-      DEFAULT_FROM_EMAIL: 'Obóz Studentów Pwr <noreply@obozstudentowpwr.com>'
-      EMAIL_HOST: 'smtp.gmail.com'
-      EMAIL_HOST_USER: 'mervinmervin0@gmail.com'
-      EMAIL_HOST_PASSWORD: 'xpgqkqvzuqrhmfzo'
+      DEFAULT_FROM_EMAIL: 'Obóz Studentów PWr 2023 <obozstudentow2023@e-2-e.eu>'
+      EMAIL_HOST: 'smtp.office365.com'
+      EMAIL_HOST_USER: 'marvin.rucinski@e-2-e.eu'
+      EMAIL_HOST_PASSWORD: 'Nejdo5-kittib-gomzyp'
       EMAIL_PORT: 587
       EMAIL_USE_TLS: 'true'
       EMAIL_USE_SSL: 'false'
 
       DB_PASSWORD: '/run/secrets/db_password'
       SECRET_KEY: '/run/secrets/secret_key'
-      ALLOWED_HOSTS: '130.61.148.125,appka.obozstudentowpwr.com,apka.obozstudentowpwr.com,test.obozstudentowpwr.com'
+      ALLOWED_HOSTS: '130.61.148.125,appka.obozstudentowpwr.com,apka.obozstudentowpwr.com,test.obozstudentowpwr.com,test3.obozstudentowpwr.com'
       CSRF_TRUSTED_ORIGINS: 'https://appka.obozstudentowpwr.com,https://apka.obozstudentowpwr.com,https://test.obozstudentowpwr.com'
     secrets:
       - secret_key

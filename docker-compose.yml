@@ -46,14 +46,16 @@ services:
       - static:/usr/share/nginx/html
       - certbot_conf:/etc/letsencrypt
       - certbot_www:/var/www/certbot
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
   certbot:
     image: certbot/certbot
     volumes:
       - certbot_conf:/etc/letsencrypt
       - certbot_www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+      - certbot_logs:/var/log/letsencrypt
+    # entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    # command: "certonly --webroot --webroot-path /var/www/certbot/ -d appka.obozstudentowpwr.com -d apka.obozstudentowpwr.com -d test3.obozstudentowpwr.com -m marvin@prasa-polska.com --agree-tos --staple --non-interactive"
 
 
 volumes:
@@ -61,3 +63,4 @@ volumes:
   postgres_data:
   certbot_conf:
   certbot_www:
+  certbot_logs:

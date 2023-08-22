@@ -17,3 +17,30 @@ certbot certonly --webroot --webroot-path /var/www/certbot/ -d test.obozstudento
 
 docker compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d "*.obozstudentowpwr.com" -m marvin@prasa-polska.com --agree-tos --staple
 ```
+
+# Build ebuging
+Add `--progress=plain` to docker-compose command to see detail messages of building images
+
+# List containers
+```bash
+docker ps
+```
+
+# Logs
+```bash
+docker logs --tail 10 -f oboz_studentow_pwr_2023_docker-web-1
+docker logs --tail 10 -f oboz_studentow_pwr_2023_docker-nginx-1
+```
+
+# Connect to container
+```bash
+docker exec -ti oboz_studentow_pwr_2023_docker-nginx-1 bash
+docker exec -ti oboz_studentow_pwr_2023_docker-web-1 bash
+```
+
+# Backup database
+```bash
+docker exec -t oboz_studentow_pwr_2023_docker-postgres-1 pg_dumpall -c -U dbuser > dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql
+```
+
+

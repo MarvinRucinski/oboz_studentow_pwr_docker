@@ -24,8 +24,7 @@ exec gunicorn \
    --name app \
    --workers 3 \
    --forwarded-allow-ips="*" \
-   --log-level=info \
+   --log-level=debug \
    --capture-output --enable-stdio-inheritance \
-   --log-file=/app/logs/gunicorn.log \
-   --access-logfile=/app/logs/access.log \
+   --access-logfile '-' --error-logfile '-' \
    obozstudentowProject.wsgi:application

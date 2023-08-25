@@ -15,6 +15,16 @@ rm /www/app/firebase-messaging-sw.js
 
 cp /vue/firebase-messaging-sw.js /www/firebase-messaging-sw.js
 
+# copy icons to root
+cp /vue/favicon.ico /www/favicon.ico
+cp /vue/manifest.webmanifest /www/manifest.webmanifest
+cp /vue/apple-touch-icon.png /www/apple-touch-icon.png
+cp /vue/android-chrome-192x192.png /www/android-chrome-192x192.png
+cp /vue/android-chrome-512x512.png /www/android-chrome-512x512.png
+cp /vue/safari-pinned-tab.svg /www/safari-pinned-tab.svg
+cp /vue/browserconfig.xml /www/browserconfig.xml
+cp /vue/mstile-150x150.png /www/mstile-150x150.png
+
 # Start Gunicorn processes
 echo Starting Gunicorn.
 

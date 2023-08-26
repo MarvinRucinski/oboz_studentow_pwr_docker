@@ -17,6 +17,8 @@ cp /vue/firebase-messaging-sw.js /www/firebase-messaging-sw.js
 
 # copy icons to root
 cp /vue/favicon.ico /www/favicon.ico
+cp /vue/favicon-16x16.png /www/favicon-16x16.png
+cp /vue/favicon-32x32.png /www/favicon-32x32.png
 cp /vue/manifest.webmanifest /www/manifest.webmanifest
 cp /vue/apple-touch-icon.png /www/apple-touch-icon.png
 cp /vue/android-chrome-192x192.png /www/android-chrome-192x192.png

@@ -25,6 +25,8 @@ cp /vue/safari-pinned-tab.svg /www/safari-pinned-tab.svg
 cp /vue/browserconfig.xml /www/browserconfig.xml
 cp /vue/mstile-150x150.png /www/mstile-150x150.png
 
+cp /version.txt /www/version.txt
+
 # Start Gunicorn processes
 echo Starting Gunicorn.
 

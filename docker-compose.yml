@@ -32,8 +32,11 @@ services:
       DB_HOST: 'postgres'
       STATIC_ROOT: '/www/static'
       MEDIA_ROOT: '/www/media'
+      ALLOWED_HOSTS: 'localhost'
+      CSRF_TRUSTED_ORIGINS: 'http://localhost:8080'
       SECRET_KEY: '!nbkyn4osdgpzggv)(9w=&u_a((f!k9=m^bo%$1knzya%7-e++'
       VITE_API_URL: '/api/'
+      VITE_WS_API_PROTOCOL: 'ws'
 
   nginx:
     restart: always

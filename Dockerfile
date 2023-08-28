@@ -42,8 +42,7 @@ RUN mkdir -p ./logs
 RUN chmod 755 .  
 RUN chmod 755 ./docker-entrypoint.sh
 RUN pip3 install --no-cache-dir -r ./requirements.txt
-RUN pip3 install gunicorn
-RUN pip3 install psycopg2-binary
+RUN pip3 install 'uvicorn[standard]' gunicorn psycopg2-binary
 
 COPY ./save-version-number.py ./save-version-number.py
 RUN python ./save-version-number.py

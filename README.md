@@ -40,7 +40,20 @@ docker exec -ti oboz_studentow_pwr_2023_docker-web-1 bash
 
 # Backup database
 ```bash
-docker exec -t oboz_studentow_pwr_2023_docker-postgres-1 pg_dumpall -c -U dbuser > dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql
+docker exec -ti oboz_studentow_pwr_2023_docker-postgres-1 bash
+pg_dumpall -c -U dbuser > dump_`date +%d-%m-%Y"_"%H_%M_%S`.sql
+ctrl + d
+sudo docker cp oboz_studentow_pwr_2023_docker-postgres-1:filename.sql ~/filename.sql
 ```
 
+# Backup media
+```bash
+    sudo docker cp oboz_studentow_pwr_2023_docker-web-1:/www/media ~/
+```
+
+# Download backup
+```bash
+    zip -r backup-30-08-2023.zip ./
+    scp -P 6226 marvinr@appka.obozstudentowpwr.com:"/home/marvinr/backup-30-08-2023.zip" Downloads/
+```
 

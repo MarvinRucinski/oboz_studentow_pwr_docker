@@ -1,3 +1,7 @@
+# Running dev server
+Run `./vue,sh` and `./django.sh`
+In `vue.sh` you need to specfy thbe correct tocken for api auth
+
 # Setup a new server
 1. Install docker
 2. Add user to docker group `sudo usermod -aG docker {username}`

@@ -22,7 +22,7 @@ certbot certonly --webroot --webroot-path /var/www/certbot/ -d test.obozstudento
 docker compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d "*.obozstudentowpwr.com" -m marvin@prasa-polska.com --agree-tos --staple
 ```
 
-# Build ebuging
+# Build debuging
 Add `--progress=plain` to docker-compose command to see detail messages of building images
 
 # List containers

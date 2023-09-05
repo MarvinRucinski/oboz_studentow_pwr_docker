@@ -32,8 +32,13 @@ docker ps
 
 # Logs
 ```bash
-docker logs --tail 10 -f oboz_studentow_pwr_2023_docker-web-1
-docker logs --tail 10 -f oboz_studentow_pwr_2023_docker-nginx-1
+docker logs --tail 100 -f oboz_studentow_pwr_2023_docker-web-1
+docker logs --tail 100 -f oboz_studentow_pwr_2023_docker-nginx-1
+docker logs --tail 100 -f oboz_studentow_pwr_2023_docker-postgres-1
+```
+# save logs to file
+```bash
+docker -H ssh://dockeruser@144.24.177.18:6226 logs --tail 4500 oboz_studentow_pwr_2023_docker-postgres-1 >& ./postgres.log
 ```
 
 # Connect to container

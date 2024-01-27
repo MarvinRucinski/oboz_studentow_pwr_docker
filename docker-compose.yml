@@ -13,9 +13,20 @@ services:
       POSTGRES_PASSWORD: 'postgres'
       POSTGRES_USER: dbuser
 
+  redis:
+    restart: always
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
   web:
     restart: always
-    build: .
+    build:
+      context: .
+      args:
+        VITE_API_URL: '/api/'
+        VITE_WS_API_PROTOCOL: 'ws'
+
     depends_on:
       - postgres
     ports:
@@ -24,19 +35,28 @@ services:
       - static:/www
     # env_file: .env
     environment:
-      DEBUG: 'True'
+      DEBUG: 'true'
+      CHANNEL_LAYERS: '{"default": {"BACKEND": "channels_redis.core.RedisChannelLayer", "CONFIG": {"hosts": [["redis", 6379]]}}}'
+
+      EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
+      DEFAULT_FROM_EMAIL: 'Obóz Zimowy 2024 <sport@samorzad.pwr.edu.pl>'
+      EMAIL_HOST: 'poczta.wcss.pl'
+      EMAIL_HOST_USER: 'sport@samorzad.pwr.edu.pl'
+      EMAIL_HOST_PASSWORD: 'Gruw9w'
+      EMAIL_PORT: 465
+      EMAIL_USE_TLS: 'false'
+      EMAIL_USE_SSL: 'true'
+
       DB_ENGINE: 'django.db.backends.postgresql'
       DB_NAME: 'postgres'
       DB_USER: 'dbuser'
-      DB_PASSWORD: 'postgres' 
+      DB_PASSWORD: 'postgres'
       DB_HOST: 'postgres'
       STATIC_ROOT: '/www/static'
       MEDIA_ROOT: '/www/media'
-      ALLOWED_HOSTS: 'localhost'
-      CSRF_TRUSTED_ORIGINS: 'http://localhost:8080'
+      ALLOWED_HOSTS: 'localhost,192.168.1.143'
+      CSRF_TRUSTED_ORIGINS: 'http://localhost:8080,http://192.168.1.143:8080'
       SECRET_KEY: '!nbkyn4osdgpzggv)(9w=&u_a((f!k9=m^bo%$1knzya%7-e++'
-      VITE_API_URL: '/api/'
-      VITE_WS_API_PROTOCOL: 'ws'
 
   nginx:
     restart: always

@@ -9,24 +9,18 @@ services:
 
 
   web:
+    build:
+      context: .
+      args:
+        VITE_WS_API_PROTOCOL: 'wss'
     environment:
       DEBUG: 'False'
-
-      EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
-      DEFAULT_FROM_EMAIL: 'Obóz Studentów PWr 2023 <obozstudentow2023@e-2-e.eu>'
-      EMAIL_HOST: 'smtp.office365.com'
-      EMAIL_HOST_USER: 'marvin.rucinski@e-2-e.eu'
-      EMAIL_HOST_PASSWORD: 'Nejdo5-kittib-gomzyp'
-      EMAIL_PORT: 587
-      EMAIL_USE_TLS: 'true'
-      EMAIL_USE_SSL: 'false'
 
       DB_PASSWORD: '/run/secrets/db_password'
       SECRET_KEY: '/run/secrets/secret_key'
       ALLOWED_HOSTS: 'appka.obozstudentowpwr.com,apka.obozstudentowpwr.com'
       CSRF_TRUSTED_ORIGINS: 'https://appka.obozstudentowpwr.com,https://apka.obozstudentowpwr.com'
 
-      VITE_WS_API_PROTOCOL: 'wss'
     secrets:
       - secret_key
       - db_password

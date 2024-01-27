@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1.3
+
 FROM node:lts-alpine as vue
 
 # make the 'app' folder the current working directory
@@ -12,6 +14,12 @@ RUN npm install
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY ./vue/ ./
 
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
+ARG VITE_WS_API_PROTOCOL
+ENV VITE_WS_API_PROTOCOL=$VITE_WS_API_PROTOCOL
+
 # build app for production with minification
 RUN npx vite build --base=/app/
 
@@ -19,7 +27,7 @@ RUN npx vite build --base=/app/
 
 
 # ----- DJANGO -----
-FROM python as django
+FROM python:3.12-slim as django
 
 # This prevents Python from writing out pyc files
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -31,6 +39,7 @@ EXPOSE 8000
 
 WORKDIR /app
 
+
 COPY ./django .
 COPY ./docker-entrypoint-django.sh ./docker-entrypoint.sh
 
@@ -41,7 +50,11 @@ RUN mkdir -p ./assets
 RUN mkdir -p ./logs 
 RUN chmod 755 .  
 RUN chmod 755 ./docker-entrypoint.sh
-RUN pip3 install --no-cache-dir -r ./requirements.txt
-RUN pip3 install 'uvicorn[standard]' gunicorn psycopg2-binary
+# RUN pip3 install --no-cache-dir -r ./requirements.txt
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip3 install -r ./requirements.txt
+
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip3 install 'uvicorn[standard]' gunicorn psycopg2-binary
 
 CMD ["/app/docker-entrypoint.sh", "-n"]

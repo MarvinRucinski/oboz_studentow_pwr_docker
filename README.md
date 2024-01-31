@@ -7,14 +7,29 @@ In `vue.sh` you need to specify the correct tocken for api auth
 2. Add user to docker group `sudo usermod -aG docker {username}`
 2. Create a `/secrets/db_password.txt` and `/secrets/secret_key_production.txt` files on the production server
 3. Copy ssh public key to `~/.ssh/authorized_keys` (on macos from `~/.ssh/id_rsa.pub`)
-4. Copy postgress and static volumes `/var/lib/docker/volumes/`
-4. Run and generate certificates
-5. Make a symlink `docker exec -ti oboz_studentow_pwr_2023_docker-nginx-1 bash`
+4. Create django super user 
+```bash
+docker exec -ti oboz_studentow_pwr_2023_docker-web-1 bash
+python3 manage.py createsuperuser
+```
+or copy postgress and static volumes `/var/lib/docker/volumes/` if you want to keep the data from the previous server
+
+6. Run and generate certificates
+7. Make a symlink `docker exec -ti oboz_studentow_pwr_2023_docker-nginx-1 bash`
 
     `ln -s /etc/letsencrypt/live/test3.obozstudentowpwr.com/ /etc/letsencrypt/live/appka.obozstudentowpwr.com`
 
-Generate certificates: 
+# Generate certificates: 
+1. Disable HTTPS server in nginx (comment it in the app.conf file)
+2. Run certbot
 ```bash
+docker exec -ti oboz_studentow_pwr_2023_docker-certbot-1 certbot certonly --webroot --webroot-path /var/www/certbot/ -d appka.obozstudentowpwr.com -d apka.obozstudentowpwr.com -m marvin@prasa-polska.com --agree-tos --staple --no-eff-email
+```
+3. Enable HTTPS server in nginx
+
+# Other commands used for generating cerftificates
+```bash
+
 docker compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot -d appka.obozstudentowpwr.com -d apka.obozstudentowpwr.com
 
 certbot certonly --webroot --webroot-path /var/www/certbot/ -d test.obozstudentowpwr.com -m marvin@prasa-polska.com --agree-tos --staple

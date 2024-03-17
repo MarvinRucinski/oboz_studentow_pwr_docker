@@ -12,7 +12,7 @@ services:
     build:
       context: .
       args:
-        VUE_APP_WS_API_PROTOCOL: 'wss'
+        VITE_WS_API_PROTOCOL: 'wss'
     environment:
       DEBUG: 'False'
 

@@ -14,11 +14,11 @@ RUN npm install
 # copy project files and folders to the current working directory (i.e. 'app' folder)
 COPY ./vue/ ./
 
-ARG VUE_APP_API_URL
-ENV VUE_APP_API_URL=$VUE_APP_API_URL
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
 
-ARG VUE_APP_WS_API_PROTOCOL
-ENV VUE_APP_WS_API_PROTOCOL=$VUE_APP_WS_API_PROTOCOL
+ARG VITE_WS_API_PROTOCOL
+ENV VITE_WS_API_PROTOCOL=$VITE_WS_API_PROTOCOL
 
 # build app for production with minification
 RUN npx vite build --base=/app/

@@ -1,4 +1,4 @@
-version: '3'
+ version: '3'
 
 services:
 
@@ -24,8 +24,8 @@ services:
     build:
       context: .
       args:
-        VITE_API_URL: '/api/'
-        VITE_WS_API_PROTOCOL: 'ws'
+        VUE_APP_API_URL: '/api/'
+        VUE_APP_WS_API_PROTOCOL: 'ws'
 
     depends_on:
       - postgres

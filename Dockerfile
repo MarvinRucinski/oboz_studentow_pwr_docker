@@ -1,30 +1,5 @@
 # syntax=docker/dockerfile:1.3
 
-FROM node:lts-alpine as vue
-
-# make the 'app' folder the current working directory
-WORKDIR /app
-
-# copy both 'package.json' and 'package-lock.json' (if available)
-COPY ./vue/package*.json ./
-
-# install project dependencies
-RUN npm install
-
-# copy project files and folders to the current working directory (i.e. 'app' folder)
-COPY ./vue/ ./
-
-ARG VITE_API_URL
-ENV VITE_API_URL=$VITE_API_URL
-
-ARG VITE_WS_API_PROTOCOL
-ENV VITE_WS_API_PROTOCOL=$VITE_WS_API_PROTOCOL
-
-# build app for production with minification
-RUN npx vite build --base=/app/
-
-
-
 
 # ----- DJANGO -----
 FROM python:3.12-slim as django
@@ -42,9 +17,6 @@ WORKDIR /app
 
 COPY ./django .
 COPY ./docker-entrypoint-django.sh ./docker-entrypoint.sh
-
-COPY --from=vue /app/dist /vue
-COPY --from=vue /app/dist/index.html /app/templates/app.html
 
 RUN mkdir -p ./assets
 RUN mkdir -p ./logs 

@@ -20,5 +20,6 @@ secrets/*
 .vscode
 vue/dist
 vue/node_modules
+vue/
 django/media
 *.sqlite3

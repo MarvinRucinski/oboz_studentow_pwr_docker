@@ -3,8 +3,10 @@ Run `./vue.sh` and `./django.sh`
 In `vue.sh` you need to specify the correct tocken for api auth
 
 # Setup a new server
-1. Install docker
-2. Add user to docker group `sudo usermod -aG docker {username}`
+1. [Install docker](https://docs.docker.com/engine/install/debian/#install-using-the-repository)
+2. Install certbot `sudo apt install certbot`
+3. Generate certificates `sudo certbot certonly --standalone`
+4. Add user to docker group `sudo usermod -aG docker {username}`
 2. Create a `/secrets/db_password.txt` and `/secrets/secret_key_production.txt` files on the production server
 3. Copy ssh public key to `~/.ssh/authorized_keys` (on macos from `~/.ssh/id_rsa.pub`)
 4. Create django super user 
@@ -14,28 +16,7 @@ python3 manage.py createsuperuser
 ```
 or copy postgress and static volumes `/var/lib/docker/volumes/` if you want to keep the data from the previous server
 
-6. Run and generate certificates
-7. Make a symlink `docker exec -ti oboz_studentow_pwr_2023_docker-nginx-1 bash`
-
-    `ln -s /etc/letsencrypt/live/test3.obozstudentowpwr.com/ /etc/letsencrypt/live/appka.obozstudentowpwr.com`
-
-# Generate certificates: 
-1. Disable HTTPS server in nginx (comment it in the app.conf file)
-2. Run certbot
-```bash
-docker exec -ti oboz_studentow_pwr_2023_docker-certbot-1 certbot certonly --webroot --webroot-path /var/www/certbot/ -d appka.obozstudentowpwr.com -d apka.obozstudentowpwr.com -m marvin@prasa-polska.com --agree-tos --staple --no-eff-email
-```
-3. Enable HTTPS server in nginx
-
-# Other commands used for generating cerftificates
-```bash
-
-docker compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot -d appka.obozstudentowpwr.com -d apka.obozstudentowpwr.com
-
-certbot certonly --webroot --webroot-path /var/www/certbot/ -d test.obozstudentowpwr.com -m marvin@prasa-polska.com --agree-tos --staple
-
-docker compose run --rm certbot certonly --webroot --webroot-path /var/www/certbot/ -d "*.obozstudentowpwr.com" -m marvin@prasa-polska.com --agree-tos --staple
-```
+6. Run
 
 # Build debuging
 Add `--progress=plain` to docker-compose command to see detail messages of building images

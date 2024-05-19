@@ -23,9 +23,6 @@ services:
     restart: always
     build:
       context: .
-      args:
-        VITE_API_URL: '/api/'
-        VITE_WS_API_PROTOCOL: 'ws'
 
     depends_on:
       - postgres

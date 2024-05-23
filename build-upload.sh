@@ -1,1 +1,1 @@
-docker -H ssh://marvinr@188.68.247.148:22 compose -f docker-compose.yml -f production.yml up -d --build
+docker -H ssh://dockeruser@156.17.197.71 compose -f docker-compose.yml -f production.yml up -d --build

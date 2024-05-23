@@ -11,15 +11,13 @@ services:
   web:
     build:
       context: .
-      args:
-        VITE_WS_API_PROTOCOL: 'wss'
     environment:
-      DEBUG: 'False'
+      DEBUG: 'True'
 
       DB_PASSWORD: '/run/secrets/db_password'
       SECRET_KEY: '/run/secrets/secret_key'
-      ALLOWED_HOSTS: 'appka.obozstudentowpwr.com,apka.obozstudentowpwr.com'
-      CSRF_TRUSTED_ORIGINS: 'https://appka.obozstudentowpwr.com,https://apka.obozstudentowpwr.com'
+      ALLOWED_HOSTS: 'api.oboz.samorzad.pwr.edu.pl,www.api.oboz.samorzad.pwr.edu.pl'
+      CSRF_TRUSTED_ORIGINS: 'http://localhost:8100'
 
     secrets:
       - secret_key

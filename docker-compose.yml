@@ -36,13 +36,13 @@ services:
       CHANNEL_LAYERS: '{"default": {"BACKEND": "channels_redis.core.RedisChannelLayer", "CONFIG": {"hosts": [["redis", 6379]]}}}'
 
       EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
-      DEFAULT_FROM_EMAIL: 'Obóz Zimowy 2024 <sport@samorzad.pwr.edu.pl>'
-      EMAIL_HOST: 'poczta.wcss.pl'
-      EMAIL_HOST_USER: 'sport@samorzad.pwr.edu.pl'
-      EMAIL_HOST_PASSWORD: 'Gruw9w'
-      EMAIL_PORT: 465
-      EMAIL_USE_TLS: 'false'
-      EMAIL_USE_SSL: 'true'
+      DEFAULT_FROM_EMAIL: 'Obóz Studentów PWr <oboz@samorzad.pwr.edu.pl>'
+      EMAIL_HOST: 'smtp.gmail.com'
+      EMAIL_HOST_USER: '264181@student.pwr.edu.pl'
+      EMAIL_HOST_PASSWORD: 'vvjsrqsbvuyycpip'
+      EMAIL_PORT: 587
+      EMAIL_USE_TLS: 'True'
+      EMAIL_USE_SSL: 'False'
 
       DB_ENGINE: 'django.db.backends.postgresql'
       DB_NAME: 'postgres'
@@ -52,7 +52,8 @@ services:
       STATIC_ROOT: '/www/static'
       MEDIA_ROOT: '/www/media'
       ALLOWED_HOSTS: 'localhost,192.168.1.143'
-      CSRF_TRUSTED_ORIGINS: 'http://localhost:8080,http://192.168.1.143:8080'
+      CSRF_TRUSTED_ORIGINS: 'http://localhost:8080'
+      CORS_ALLOWED_ORIGINS: 'http://localhost:8100'
       SECRET_KEY: '!nbkyn4osdgpzggv)(9w=&u_a((f!k9=m^bo%$1knzya%7-e++'
 
   nginx:
@@ -64,22 +65,19 @@ services:
       - "8080:80"
     volumes:
       - static:/usr/share/nginx/html
-      - certbot_conf:/etc/letsencrypt
-      - certbot_www:/var/www/certbot
+      - /etc/letsencrypt:/etc/letsencrypt
+      - /var/www/certbot:/var/www/certbot
     # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
 
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - certbot_conf:/etc/letsencrypt
-      - certbot_www:/var/www/certbot
-      - certbot_logs:/var/log/letsencrypt
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-    command: "certonly --webroot --webroot-path /var/www/certbot/ -d appka.obozstudentowpwr.com -d apka.obozstudentowpwr.com -m marvin@prasa-polska.com --agree-tos --staple --non-interactive"
+    # certbot:
+    #   image: certbot/certbot
+    #   volumes:
+    #     - certbot_conf:/etc/letsencrypt
+    #     - certbot_www:/var/www/certbot
+    #     - certbot_logs:/var/log/letsencrypt
+    #   entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    #   command: "certonly --webroot --webroot-path /var/www/certbot/ -d appka.obozstudentowpwr.com -d apka.obozstudentowpwr.com -m marvin@prasa-polska.com --agree-tos --staple --non-interactive"
 
 volumes:
   static:
   postgres_data:
-  certbot_conf:
-  certbot_www:
-  certbot_logs:

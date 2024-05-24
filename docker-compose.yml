@@ -38,8 +38,7 @@ services:
       EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
       DEFAULT_FROM_EMAIL: 'Obóz Studentów PWr <oboz@samorzad.pwr.edu.pl>'
       EMAIL_HOST: 'smtp.gmail.com'
-      EMAIL_HOST_USER: '264181@student.pwr.edu.pl'
-      EMAIL_HOST_PASSWORD: 'vvjsrqsbvuyycpip'
+      EMAIL_HOST_USER: 'oboz@samorzad.pwr.edu.pl'
       EMAIL_PORT: 587
       EMAIL_USE_TLS: 'True'
       EMAIL_USE_SSL: 'False'

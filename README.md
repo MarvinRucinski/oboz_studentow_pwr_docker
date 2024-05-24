@@ -7,8 +7,9 @@ In `vue.sh` you need to specify the correct tocken for api auth
 2. Install certbot `sudo apt install certbot`
 3. Generate certificates `sudo certbot certonly --standalone`
 4. Add user to docker group `sudo usermod -aG docker {username}`
-2. Create a `/secrets/db_password.txt` and `/secrets/secret_key_production.txt` files on the production server
+2. Create a `/secrets/db_password.txt`, `/secrets/email_host_password.txt` and `/secrets/secret_key_production.txt` files on the production server
 3. Copy ssh public key to `~/.ssh/authorized_keys` (on macos from `~/.ssh/id_rsa.pub`)
+1. Run `docker -H ssh://user@IP compose -f docker-compose.yml -f production.yml up -d --build`
 4. Create django super user 
 ```bash
 docker exec -ti oboz_studentow_pwr_2023_docker-web-1 bash
@@ -16,7 +17,6 @@ python3 manage.py createsuperuser
 ```
 or copy postgress and static volumes `/var/lib/docker/volumes/` if you want to keep the data from the previous server
 
-6. Run
 
 # Build debuging
 Add `--progress=plain` to docker-compose command to see detail messages of building images

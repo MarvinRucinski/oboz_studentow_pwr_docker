@@ -12,16 +12,18 @@ services:
     build:
       context: .
     environment:
-      DEBUG: 'True'
+      DEBUG: 'False'
 
       DB_PASSWORD: '/run/secrets/db_password'
       SECRET_KEY: '/run/secrets/secret_key'
+      EMAIL_HOST_PASSWORD: '/run/secrets/email_host_password'
       ALLOWED_HOSTS: 'api.oboz.samorzad.pwr.edu.pl,www.api.oboz.samorzad.pwr.edu.pl'
       CSRF_TRUSTED_ORIGINS: 'http://localhost:8100'
 
     secrets:
       - secret_key
       - db_password
+      - email_host_password
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
@@ -35,3 +37,5 @@ secrets:
     file: /secrets/secret_key_production.txt
   db_password:
     file: /secrets/db_password.txt
+  email_host_password:
+    file: /secrets/email_host_password.txt

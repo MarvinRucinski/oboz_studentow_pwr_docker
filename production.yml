@@ -17,9 +17,9 @@ services:
       DB_PASSWORD: '/run/secrets/db_password'
       SECRET_KEY: '/run/secrets/secret_key'
       EMAIL_HOST_PASSWORD: '/run/secrets/email_host_password'
-      ALLOWED_HOSTS: 'api.oboz.samorzad.pwr.edu.pl,www.api.oboz.samorzad.pwr.edu.pl'
-      CSRF_TRUSTED_ORIGINS: 'http://localhost:8100,capacitor://localhost,http://192.168.0.186:8100'
-      CORS_ALLOWED_ORIGINS: 'http://localhost:8100,capacitor://localhost,http://192.168.0.186:8100'
+      ALLOWED_HOSTS: 'vps-75063b4c.vps.ovh.net'
+      CSRF_TRUSTED_ORIGINS: 'https://localhost,capacitor://localhost,http://192.168.0.186:8100'
+      CORS_ALLOWED_ORIGINS: 'https://localhost,capacitor://localhost,http://192.168.0.186:8100'
 
     secrets:
       - secret_key

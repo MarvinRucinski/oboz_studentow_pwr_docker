@@ -22,4 +22,6 @@ vue/dist
 vue/node_modules
 vue/*
 django/media
+django/venv
+django/.venv
 *.sqlite3

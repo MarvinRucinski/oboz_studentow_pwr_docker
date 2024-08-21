@@ -19,7 +19,7 @@ services:
       EMAIL_HOST_PASSWORD: '/run/secrets/email_host_password'
       ALLOWED_HOSTS: 'vps-75063b4c.vps.ovh.net'
       CSRF_TRUSTED_ORIGINS: 'https://localhost,capacitor://localhost,http://192.168.0.186:8100'
-      CORS_ALLOWED_ORIGINS: 'https://localhost,capacitor://localhost,http://192.168.0.186:8100,http://192.168.1.153:8100'
+      CORS_ALLOWED_ORIGINS: 'https://localhost,capacitor://localhost,http://192.168.0.186:8100,http://192.168.1.153:8100,http://localhost:8100'
 
     secrets:
       - secret_key

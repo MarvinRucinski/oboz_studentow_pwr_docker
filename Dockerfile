@@ -27,6 +27,6 @@ RUN --mount=type=cache,target=/root/.cache/pip \
     pip3 install -r ./requirements.txt
 
 RUN --mount=type=cache,target=/root/.cache/pip \
-    pip3 install 'uvicorn[standard]' gunicorn psycopg2-binary
+    pip3 install 'uvicorn[standard]' gunicorn
 
 CMD ["/app/docker-entrypoint.sh", "-n"]

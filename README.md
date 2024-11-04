@@ -1,3 +1,8 @@
+# Cloning repo
+```bash
+git clone --recurse-submodules https://github.com/MervinDelfin/oboz_studentow_pwr_docker/
+```
+
 # Running dev server
 Run `./vue.sh` and `./django.sh`
 In `vue.sh` you need to specify the correct tocken for api auth

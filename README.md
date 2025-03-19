@@ -67,3 +67,25 @@ sudo docker cp oboz_studentow_pwr_2023_docker-postgres-1:filename.sql ~/filename
     scp -P 6226 marvinr@appka.obozstudentowpwr.com:"/home/marvinr/backup-30-08-2023.zip" Downloads/
 ```
 
+# Running tests
+Create `.env` file in `django` directory with the following content. It will disable throttling for tests.
+```env
+ANON_THROTTLE_RATE = 'None'
+USER_THROTTLE_RATE = 'None'
+```
+Run the following commands in the terminal
+```bash
+cd vue
+npx cypress open
+```
+in second terminal
+```bash
+./vue.sh
+```
+in third terminal
+```bash
+cd django
+python3 manage.py create_test_data
+../django.sh
+```
+

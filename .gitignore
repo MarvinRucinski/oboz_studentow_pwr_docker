@@ -13,3 +13,5 @@ secrets/*
 
 django.sh
 vue.sh
+
+build-upload.sh

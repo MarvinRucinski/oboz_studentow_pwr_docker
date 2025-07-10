@@ -1,5 +1,3 @@
-version: '3'
-
 services:
 
   postgres:
@@ -53,7 +51,7 @@ services:
       MEDIA_ROOT: '/www/media'
       ALLOWED_HOSTS: 'localhost,192.168.1.143'
       CSRF_TRUSTED_ORIGINS: 'http://localhost:8080'
-      CORS_ALLOWED_ORIGINS: 'http://localhost:8100'
+      CORS_ALLOW_ALL_ORIGINS: 'true'
       SECRET_KEY: '!nbkyn4osdgpzggv)(9w=&u_a((f!k9=m^bo%$1knzya%7-e++'
 
   nginx:

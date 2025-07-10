@@ -1,6 +1,6 @@
 [submodule "vue"]
 	path = vue
-	url = https://github.com/MervinDelfin/oboz_studentow_pwr_frontend
+	url = https://github.com/informatyzacja/oboz_studentow_pwr_frontend
 [submodule "django"]
 	path = django
-	url = https://github.com/MervinDelfin/oboz_studentow_pwr_backend
+	url = https://github.com/informatyzacja/oboz_studentow_pwr_backend

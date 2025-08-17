@@ -9,16 +9,9 @@ services:
 
 
   web:
+    env_file: .prod.env
     build:
       context: .
-    environment:
-      DEBUG: 'False'
-
-      DB_PASSWORD: '/run/secrets/db_password'
-      SECRET_KEY: '/run/secrets/secret_key'
-      EMAIL_HOST_PASSWORD: '/run/secrets/email_host_password'
-      ALLOWED_HOSTS: 'www.api.oboz.samorzad.pwr.edu.pl'
-      CSRF_TRUSTED_ORIGINS: 'https://localhost,capacitor://localhost,http://192.168.0.186:8100'
 
     secrets:
       - secret_key
@@ -31,6 +24,19 @@ services:
     ports:
       - "80:80"
       - "443:443"
+
+  celery_worker:
+    env_file: .prod.env
+    secrets:
+      - secret_key
+      - db_password
+
+  celery_beat:
+    env_file: .prod.env
+    secrets:
+      - secret_key
+      - db_password
+
 
 secrets:
   secret_key:

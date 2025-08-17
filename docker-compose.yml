@@ -1,10 +1,10 @@
 services:
 
   postgres:
-    restart: always
+    restart: unless-stopped
     image: postgres:latest
-    ports:
-      - "5432:5432"
+    # ports:
+      # - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     command: postgres -c 'max_connections=1000'
@@ -13,20 +13,16 @@ services:
       POSTGRES_USER: dbuser
 
   redis:
-    restart: always
+    restart: unless-stopped
     image: redis:latest
-    ports:
-      - "6379:6379"
 
   web:
-    restart: always
+    restart: unless-stopped
     build:
       context: .
 
     depends_on:
       - postgres
-    ports:
-      - "8000:8000"
     volumes:
       - static:/www
     # env_file: .env
@@ -55,7 +51,7 @@ services:
       SECRET_KEY: '!nbkyn4osdgpzggv)(9w=&u_a((f!k9=m^bo%$1knzya%7-e++'
 
   nginx:
-    restart: always
+    restart: unless-stopped
     build: ./nginx/
     depends_on:
       - web
@@ -66,6 +62,42 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt
       - /var/www/certbot:/var/www/certbot
     # command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+
+  celery_worker:
+    restart: unless-stopped
+    build:
+      context: .
+    image: django_celery_worker
+    command: ./scripts/start-celeryworker.sh
+    user: "app"
+    # volumes:
+    #   - .:/app
+    env_file: .dev.env
+    environment:
+      CELERY_BROKER: redis://redis:6379/0
+      CELERY_BACKEND: django-db
+    depends_on:
+      - redis
+      - postgres
+      - web
+
+  celery_beat:
+    build:
+      context: .
+    image: django_celery_beat
+    command: ./scripts/start-celerybeat.sh
+    user: "app"
+    # volumes:
+    #   - .:/app
+    env_file: .dev.env
+    environment:
+      CELERY_BROKER: redis://redis:6379/0
+      CELERY_BACKEND: django-db
+    depends_on:
+      - redis
+      - postgres
+      - celery_worker
 
     # certbot:
     #   image: certbot/certbot

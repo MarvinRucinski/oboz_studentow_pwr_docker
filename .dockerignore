@@ -6,22 +6,53 @@
 nginx.log
 postgres.log
 
+# Generic DB / system clutter
 *.db
+*.sqlite3
+*.rdb
 .DS_Store
 .idea
-venv
 env
-__pycache__
+venv
 .venv
+**/.venv
 .cache
+**/__pycache__/**
+**/*.pyc
 
+# Secrets examples only
 secrets/*
 !secrets/*.example
+
 .vscode
-vue/dist
-vue/node_modules
-vue/*
+
+# Frontend (cały katalog vue jest duży i niepotrzebny do obrazu backendu)
+vue/
+
+# Django artefakty niepotrzebne w buildzie
 django/media
 django/venv
 django/.venv
-*.sqlite3
+django/db.sqlite3
+django/.env
+django/**/tests/
+
+# (Jeśli używasz collectstatic do katalogu 'django/staticfiles', dodaj poniżej)
+django/staticfiles/
+
+# Logi i cache narzędzi
+**/*.log
+logs/
+.pytest_cache
+.mypy_cache
+**/.ruff_cache
+
+# Nginx pliki nie są potrzebne w obrazie backendu (oddzielny build)
+nginx/
+
+# Ikony jeśli nie są kopiowane
+icons/
+
+# NIE ignorujemy scripts/ bo Dockerfile je kopiuje
+
+README.md

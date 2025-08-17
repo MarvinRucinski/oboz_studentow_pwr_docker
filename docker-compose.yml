@@ -18,6 +18,9 @@ services:
 
   web:
     restart: unless-stopped
+    # Build the backend image once and reuse it for celery services to avoid multiple
+    # parallel identical builds (helps with unstable SSH connections during remote builds)
+    image: oboz_backend:latest
     build:
       context: .
 
@@ -25,30 +28,7 @@ services:
       - postgres
     volumes:
       - static:/www
-    # env_file: .env
-    environment:
-      DEBUG: 'true'
-      CHANNEL_LAYERS: '{"default": {"BACKEND": "channels_redis.core.RedisChannelLayer", "CONFIG": {"hosts": [["redis", 6379]]}}}'
-
-      EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
-      DEFAULT_FROM_EMAIL: 'Obóz Studentów PWr <oboz@samorzad.pwr.edu.pl>'
-      EMAIL_HOST: 'smtp.gmail.com'
-      EMAIL_HOST_USER: 'oboz@samorzad.pwr.edu.pl'
-      EMAIL_PORT: 587
-      EMAIL_USE_TLS: 'True'
-      EMAIL_USE_SSL: 'False'
-
-      DB_ENGINE: 'django.db.backends.postgresql'
-      DB_NAME: 'postgres'
-      DB_USER: 'dbuser'
-      DB_PASSWORD: 'postgres'
-      DB_HOST: 'postgres'
-      STATIC_ROOT: '/www/static'
-      MEDIA_ROOT: '/www/media'
-      ALLOWED_HOSTS: 'localhost,192.168.1.143'
-      CSRF_TRUSTED_ORIGINS: 'http://localhost:8080'
-      CORS_ALLOW_ALL_ORIGINS: 'true'
-      SECRET_KEY: '!nbkyn4osdgpzggv)(9w=&u_a((f!k9=m^bo%$1knzya%7-e++'
+    env_file: .dev.env
 
   nginx:
     restart: unless-stopped
@@ -66,34 +46,23 @@ services:
 
   celery_worker:
     restart: unless-stopped
-    build:
-      context: .
-    image: django_celery_worker
+    # Reuse the already built backend image instead of triggering another build
+    image: oboz_backend:latest
     command: ./scripts/start-celeryworker.sh
     user: "app"
-    # volumes:
-    #   - .:/app
     env_file: .dev.env
-    environment:
-      CELERY_BROKER: redis://redis:6379/0
-      CELERY_BACKEND: django-db
     depends_on:
       - redis
       - postgres
       - web
 
   celery_beat:
-    build:
-      context: .
-    image: django_celery_beat
+    restart: unless-stopped
+    # Reuse the already built backend image instead of triggering another build
+    image: oboz_backend:latest
     command: ./scripts/start-celerybeat.sh
     user: "app"
-    # volumes:
-    #   - .:/app
     env_file: .dev.env
-    environment:
-      CELERY_BROKER: redis://redis:6379/0
-      CELERY_BACKEND: django-db
     depends_on:
       - redis
       - postgres

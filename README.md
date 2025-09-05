@@ -67,6 +67,18 @@ sudo docker cp oboz_studentow_pwr_2023_docker-postgres-1:filename.sql ~/filename
     scp -P 6226 marvinr@appka.obozstudentowpwr.com:"/home/marvinr/backup-30-08-2023.zip" Downloads/
 ```
 
+# Copy volume to new host
+Source server:
+```bash
+docker volume inspect NAZWA_VOLUME
+sudo tar -C /var/lib/docker/volumes/NAZWA_VOLUME/_data -czf /tmp/volume.tar.gz .
+scp /tmp/volume.tar.gz user@serwer2:/tmp/
+```
+Target server:
+```bash
+sudo tar -C /var/lib/docker/volumes/NAZWA_VOLUME/_data -xzf /tmp/volume.tar.gz
+```
+
 # Running tests
 Create `.env` file in `django` directory with the following content. It will disable throttling for tests.
 ```env

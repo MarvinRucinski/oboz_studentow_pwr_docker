@@ -35,8 +35,6 @@ services:
     build: ./nginx/
     depends_on:
       - web
-    ports:
-      - "8080:80"
     volumes:
       - static:/usr/share/nginx/html
       - /etc/letsencrypt:/etc/letsencrypt

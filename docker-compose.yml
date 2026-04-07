@@ -35,6 +35,8 @@ services:
     build: ./nginx/
     depends_on:
       - web
+    expose:
+      - 80
     volumes:
       - static:/usr/share/nginx/html
       - /etc/letsencrypt:/etc/letsencrypt

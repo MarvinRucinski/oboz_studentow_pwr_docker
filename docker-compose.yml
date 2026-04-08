@@ -1,21 +1,5 @@
 services:
 
-  postgres:
-    networks:
-        default:
-          aliases:
-            - postgres
-    restart: unless-stopped
-    image: postgres:latest
-    # ports:
-      # - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
-    command: postgres -c 'max_connections=1000'
-    environment:
-      POSTGRES_PASSWORD: 'postgres'
-      POSTGRES_USER: dbuser
-
   redis:
     networks:
         default:
@@ -31,9 +15,6 @@ services:
     image: oboz_backend:latest
     build:
       context: .
-
-    depends_on:
-      - postgres
     volumes:
       - static:/www
     env_file: .dev.env
@@ -61,7 +42,6 @@ services:
     env_file: .dev.env
     depends_on:
       - redis
-      - postgres
       - web
 
   celery_beat:
@@ -73,9 +53,7 @@ services:
     env_file: .dev.env
     depends_on:
       - redis
-      - postgres
       - celery_worker
 
 volumes:
   static:
-  postgres_data:

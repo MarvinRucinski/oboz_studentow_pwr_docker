@@ -1,6 +1,10 @@
 services:
 
   postgres:
+    networks:
+        default:
+          aliases:
+            - postgres
     restart: unless-stopped
     image: postgres:latest
     # ports:
@@ -13,6 +17,10 @@ services:
       POSTGRES_USER: dbuser
 
   redis:
+    networks:
+        default:
+          aliases:
+            - redis
     restart: unless-stopped
     image: redis:latest
 
